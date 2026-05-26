@@ -152,7 +152,8 @@ function initDivider() {
 
 const { pdfUrl, pageMap, bg } = parseParams();
 if (bg && /^[0-9a-fA-F]{3,6}$/.test(bg)) {
-  document.documentElement.style.setProperty('--paper', '#' + bg);
+  document.documentElement.style.setProperty('--paper',      '#' + bg);
+  document.documentElement.style.setProperty('--viewer-bg',  '#' + bg);
 }
 initDivider();
 renderPDF(pdfUrl);

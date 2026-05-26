@@ -186,7 +186,8 @@ function initDivider() {
 
 const { videoId, layout, thresholds, bg } = parseParams();
 if (bg && /^[0-9a-fA-F]{3,6}$/.test(bg)) {
-  document.documentElement.style.setProperty('--paper', '#' + bg);
+  document.documentElement.style.setProperty('--paper',      '#' + bg);
+  document.documentElement.style.setProperty('--viewer-bg',  '#' + bg);
 }
 if (layout === 'horizontal') {
   document.getElementById('app').classList.add('horizontal');
