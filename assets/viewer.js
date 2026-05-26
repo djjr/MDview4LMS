@@ -136,7 +136,7 @@ function buildMarkedInstance(footnotes) {
       }
 
       const text = footnotes.get(id) ?? `(missing note: ${id})`;
-      return `<sup class="footnote-ref">${n}</sup><aside class="sidenote">${text}</aside>`;
+      return `<sup class="footnote-ref">${n}</sup><aside class="sidenote"><sup class="footnote-ref">${n}</sup> ${text}</aside>`;
     }
   };
 

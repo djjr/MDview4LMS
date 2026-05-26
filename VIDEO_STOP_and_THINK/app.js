@@ -151,8 +151,40 @@ function checkTime() {
   }
 }
 
+// ── Draggable divider (horizontal layout only) ────────────────────────────
+
+function initDivider() {
+  const divider = document.getElementById('divider');
+  const sidebar  = document.getElementById('sidebar');
+  let startX, startWidth;
+
+  divider.addEventListener('mousedown', (e) => {
+    startX     = e.clientX;
+    startWidth = sidebar.offsetWidth;
+    divider.classList.add('dragging');
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', stopDrag);
+    e.preventDefault();
+  });
+
+  function onDrag(e) {
+    const newWidth = Math.max(280, Math.min(600, startWidth + (startX - e.clientX)));
+    sidebar.style.width    = newWidth + 'px';
+    sidebar.style.minWidth = newWidth + 'px';
+  }
+
+  function stopDrag() {
+    divider.classList.remove('dragging');
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', stopDrag);
+  }
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────
 
 const { videoId, layout, thresholds } = parseParams();
-if (layout === 'horizontal') document.getElementById('app').classList.add('horizontal');
+if (layout === 'horizontal') {
+  document.getElementById('app').classList.add('horizontal');
+  initDivider();
+}
 // onYouTubeIframeAPIReady() is called by the YT script — no explicit call needed here

@@ -59,6 +59,20 @@ html, body {
   color: var(--accent);
 }
 
+/* Drag handle between viewer and sidebar */
+#divider {
+  background: var(--line);
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  width: 5px;
+}
+
+#divider:hover,
+#divider.dragging {
+  background: var(--accent);
+}
+
 /* Right: sidebar column */
 #sidebar {
   background: var(--paper);

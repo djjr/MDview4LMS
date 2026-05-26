@@ -58,6 +58,11 @@ html, body {
   padding: 1rem 0;
 }
 
+/* Drag handle — only shown in horizontal layout */
+#divider {
+  display: none;
+}
+
 /* Bottom: questions panel */
 #sidebar {
   background: var(--paper);
@@ -113,6 +118,20 @@ html, body {
 
 #app.horizontal {
   flex-direction: row;
+}
+
+#app.horizontal #divider {
+  background: var(--line);
+  cursor: col-resize;
+  display: block;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  width: 5px;
+}
+
+#app.horizontal #divider:hover,
+#app.horizontal #divider.dragging {
+  background: var(--accent);
 }
 
 #app.horizontal #video-container {
