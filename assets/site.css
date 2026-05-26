@@ -127,6 +127,18 @@ article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
   vertical-align: super;
 }
 
+.st-ref {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  vertical-align: super;
+  white-space: nowrap;
+}
+.st-ref .st-stop  { color: #ba372a; }
+.st-ref .st-plus  { color: #6d655c; }
+.st-ref .st-think { color: #377437; }
+
 /* Math */
 .math-display { margin: 1.5rem 0; overflow-x: auto; text-align: center; }
 .math-error { color: var(--accent); font-family: monospace; }

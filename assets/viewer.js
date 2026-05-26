@@ -119,15 +119,18 @@ function buildMarkedInstance(footnotes) {
       if (m) return { type: 'sidenoteRef', raw: m[0], id: m[1] };
     },
     renderer(token) {
-      counter++;
-      const n = counter;
       const { id } = token;
 
       if (id.startsWith('st:')) {
-        const qids = id.slice(3); // e.g. "108,109,110"
+        // ST refs don't consume a footnote number — show badge instead
+        const qids = id.slice(3);
         const url = ST_BASE + '?q=' + encodeURIComponent(qids);
         return (
-          `<sup class="footnote-ref">${n}</sup>` +
+          `<span class="st-ref">` +
+            `<span class="st-stop">STOP</span>` +
+            `<span class="st-plus">+</span>` +
+            `<span class="st-think">THINK</span>` +
+          `</span>` +
           `<aside class="sidenote stop-and-think">` +
           `<iframe src="${url}" width="100%" height="400" frameborder="0" ` +
           `loading="lazy" title="Stop and Think questions"></iframe>` +
@@ -135,6 +138,8 @@ function buildMarkedInstance(footnotes) {
         );
       }
 
+      counter++;
+      const n = counter;
       const text = footnotes.get(id) ?? `(missing note: ${id})`;
       return `<sup class="footnote-ref">${n}</sup><aside class="sidenote"><sup class="footnote-ref">${n}</sup> ${text}</aside>`;
     }
