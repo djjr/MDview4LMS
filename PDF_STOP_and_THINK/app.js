@@ -25,7 +25,8 @@ function parseParams() {
     const m = key.match(/^page(\d+)$/i);
     if (m) pageMap.set(parseInt(m[1], 10), value);
   }
-  return { pdfUrl, pageMap };
+  const bg = params.get('bg');
+  return { pdfUrl, pageMap, bg };
 }
 
 function updateSidebar(pageNum) {
@@ -149,6 +150,9 @@ function initDivider() {
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
-const { pdfUrl, pageMap } = parseParams();
+const { pdfUrl, pageMap, bg } = parseParams();
+if (bg && /^[0-9a-fA-F]{3,6}$/.test(bg)) {
+  document.documentElement.style.setProperty('--paper', '#' + bg);
+}
 initDivider();
 renderPDF(pdfUrl);

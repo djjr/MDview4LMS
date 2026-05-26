@@ -56,7 +56,8 @@ function parseParams() {
     const m = key.match(/^ss(\d+)$/i);
     if (m) thresholds.set(parseInt(m[1], 10), value);
   }
-  return { videoId, layout, thresholds };
+  const bg = params.get('bg');
+  return { videoId, layout, thresholds, bg };
 }
 
 // ── Threshold logic ───────────────────────────────────────────────────────
@@ -183,7 +184,10 @@ function initDivider() {
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
-const { videoId, layout, thresholds } = parseParams();
+const { videoId, layout, thresholds, bg } = parseParams();
+if (bg && /^[0-9a-fA-F]{3,6}$/.test(bg)) {
+  document.documentElement.style.setProperty('--paper', '#' + bg);
+}
 if (layout === 'horizontal') {
   document.getElementById('app').classList.add('horizontal');
   initDivider();

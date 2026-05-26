@@ -179,4 +179,12 @@ async function loadReading() {
   contentEl.innerHTML = buildMarkedInstance(footnotes).parse(cleanBody);
 }
 
+function applyBgOverride() {
+  const bg = getParam('bg');
+  if (bg && /^[0-9a-fA-F]{3,6}$/.test(bg)) {
+    document.documentElement.style.setProperty('--paper', '#' + bg);
+  }
+}
+
+applyBgOverride();
 loadReading();
