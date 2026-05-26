@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- MDview4LMS v0.1 — PDF + Stop & Think Viewer -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Reader</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <div id="pdf-viewer">
+      <div id="loading-overlay">Loading PDF…</div>
+    </div>
+
+    <div id="sidebar">
+      <div id="sidebar-header">
+        <span class="sidebar-label">Stop &amp; Think</span>
+        <span id="page-indicator">—</span>
+      </div>
+      <iframe id="question-iframe" src="about:blank" title="Stop and Think questions" loading="lazy"></iframe>
+      <div id="sidebar-empty">
+        <p>No questions on this page.</p>
+      </div>
+    </div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

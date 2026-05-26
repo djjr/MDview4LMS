@@ -1,0 +1,5 @@
+.DS_Store
+**/.DS_Store
+
+# Local PDF copies downloaded for dev — not committed
+PDF_STOP_and_THINK/*.pdf
