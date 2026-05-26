@@ -121,8 +121,9 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     videoId,
     playerVars: {
-      rel: 0,              // suppress related-video suggestions
-      modestbranding: 1
+      rel: 0,                              // suppress related-video suggestions
+      origin: window.location.origin,      // required for postMessage in nested iframes
+      enablejsapi: 1
     },
     events: {
       onReady() {
