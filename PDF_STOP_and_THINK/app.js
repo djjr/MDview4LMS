@@ -15,7 +15,10 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 function parseParams() {
   const params = new URLSearchParams(window.location.search);
   const file   = params.get('file');
-  const pdfUrl = file ? (PDF_BASE ? `${PDF_BASE}/${file}` : file) : null;
+  const isAbsolute = /^https?:\/\//.test(file);
+  const pdfUrl = file
+    ? (isAbsolute ? file : PDF_BASE ? `${PDF_BASE}/${file}` : file)
+    : null;
 
   const pageMap = new Map();
   for (const [key, value] of params) {
