@@ -19,7 +19,8 @@
 //
 // =============================================================================
 
-const ST_BASE = 'https://innoeduvation.org/danryan/production/teaching/stop_and_think/index.html';
+//const ST_BASE = 'https://innoeduvation.org/danryan/production/teaching/stop_and_think/index.html';
+const ST_BASE = 'https://djjr.github.io/STOP_and_THINK/index.html';
 
 function getParam(name) {
   return new URLSearchParams(window.location.search).get(name);

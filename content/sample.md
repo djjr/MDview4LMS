@@ -14,7 +14,7 @@ This opacity creates a practical problem: if we cannot explain why a system prod
 
 ## Accountability and Responsibility
 
-When an AI system causes harm, the question of who is responsible is not straightforward.[^st:108,109]
+When an AI system causes harm, the question of who is responsible is not straightforward.[^st:232]
 
 Traditional frameworks of responsibility assume a human decision-maker. If a doctor misdiagnoses a patient, we hold the doctor responsible. But when an AI diagnostic tool produces the wrong result, responsibility is distributed across the engineers who built the model, the hospital that deployed it, the regulators who approved it, and the company that sold it.
 
@@ -22,7 +22,7 @@ This diffusion of responsibility is one of the central challenges of AI governan
 
 ## Fairness and Algorithmic Bias
 
-AI systems learn patterns from historical data. When that data reflects historical inequities — as most social data does — the system can reproduce and amplify those inequities.[^st:110]
+AI systems learn patterns from historical data. When that data reflects historical inequities — as most social data does — the system can reproduce and amplify those inequities.[^st:233]
 
 Consider a hiring algorithm trained on a company's past successful employees. If the company historically hired few women into senior roles, the algorithm will learn that being male is predictive of success. It will then recommend fewer women — not because of any explicit rule, but because that is the pattern in the data.
 
