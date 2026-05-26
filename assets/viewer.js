@@ -71,7 +71,8 @@ function extractFootnotes(body) {
 }
 
 function buildMarkedInstance(footnotes) {
-  let counter = 0;
+  let counter = 0; // footnote number (regular refs only)
+  let snId    = 0; // sidenote position index (all refs, for alignment)
 
   // Block: $$...$$ display math
   const displayMath = {
@@ -122,17 +123,20 @@ function buildMarkedInstance(footnotes) {
     renderer(token) {
       const { id } = token;
 
+      snId++;
+      const sid = snId;
+
       if (id.startsWith('st:')) {
         // ST refs don't consume a footnote number — show badge instead
         const qids = id.slice(3);
         const url = ST_BASE + '?q=' + encodeURIComponent(qids);
         return (
-          `<span class="st-ref">` +
+          `<span class="st-ref" data-snref="${sid}">` +
             `<span class="st-stop">STOP</span>` +
             `<span class="st-plus">+</span>` +
             `<span class="st-think">THINK</span>` +
           `</span>` +
-          `<aside class="sidenote stop-and-think">` +
+          `<aside class="sidenote stop-and-think" data-snid="${sid}">` +
           `<iframe src="${url}" width="100%" height="400" frameborder="0" ` +
           `loading="lazy" title="Stop and Think questions"></iframe>` +
           `</aside>`
@@ -142,7 +146,10 @@ function buildMarkedInstance(footnotes) {
       counter++;
       const n = counter;
       const text = footnotes.get(id) ?? `(missing note: ${id})`;
-      return `<sup class="footnote-ref">${n}</sup><aside class="sidenote"><sup class="footnote-ref">${n}</sup> ${text}</aside>`;
+      return (
+        `<sup class="footnote-ref" data-snref="${sid}">${n}</sup>` +
+        `<aside class="sidenote" data-snid="${sid}"><sup class="footnote-ref">${n}</sup> ${text}</aside>`
+      );
     }
   };
 
@@ -183,6 +190,36 @@ async function loadReading() {
   }
 
   contentEl.innerHTML = buildMarkedInstance(footnotes).parse(cleanBody);
+  requestAnimationFrame(alignSidenotes);
+}
+
+function alignSidenotes() {
+  const article = document.getElementById('content');
+  if (!article) return;
+
+  const articleRect = article.getBoundingClientRect();
+  const sidenotes   = Array.from(article.querySelectorAll('.sidenote[data-snid]'));
+  const GAP = 12; // minimum px gap between consecutive sidenotes
+  let prevBottom = 0;
+
+  sidenotes.forEach(aside => {
+    const ref = article.querySelector(`[data-snref="${aside.dataset.snid}"]`);
+    if (!ref) return;
+
+    const refRect  = ref.getBoundingClientRect();
+    const refMid   = refRect.top + refRect.height / 2 - articleRect.top;
+    const asideH   = aside.offsetHeight;
+
+    // Ideal: vertically centre on the inline reference
+    let top = refMid - asideH / 2;
+
+    // Collision avoidance: never above the article top, never overlap prior sidenote
+    top = Math.max(top, 0);
+    top = Math.max(top, prevBottom + GAP);
+
+    aside.style.top = top + 'px';
+    prevBottom = top + asideH;
+  });
 }
 
 function applyBgOverride() {
@@ -194,3 +231,9 @@ function applyBgOverride() {
 
 applyBgOverride();
 loadReading();
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(alignSidenotes, 150);
+});

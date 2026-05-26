@@ -52,6 +52,7 @@ article {
   font-family: Georgia, Cambria, "Times New Roman", serif;
   font-size: clamp(1.05rem, 1.3vw, 1.18rem);
   line-height: 1.72;
+  position: relative; /* anchor for absolutely-positioned sidenotes */
 }
 
 article h1, article h2, article h3 {
@@ -90,17 +91,16 @@ article figure img { border-radius: 0.5rem; height: auto; max-width: 100%; }
 article figcaption { color: var(--muted); font-family: Inter, sans-serif; font-size: 0.82rem; line-height: 1.4; margin-top: 0.45rem; }
 article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
 
-/* Sidenotes — float right into the reserved margin */
+/* Sidenotes — absolutely positioned into the reserved right margin */
 .sidenote {
   border-left: 2px solid var(--line);
-  clear: right;
   color: var(--muted);
-  float: right;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 0.78rem;
   line-height: 1.45;
-  margin: 0.25rem -20rem 1rem 2rem;
   padding-left: 0.9rem;
+  position: absolute;
+  left: calc(100% + 2rem);
   width: 18rem;
 }
 
@@ -152,7 +152,8 @@ p.error { color: var(--accent); font-family: Inter, sans-serif; }
     padding: 1.5rem 1.5rem 2rem;
   }
   .sidenote {
-    float: none;
+    position: static;
+    left: auto;
     margin: 0.75rem 0 1.25rem;
     width: auto;
   }
