@@ -33,6 +33,7 @@ No build step. No package manager. Vanilla JS + YouTube IFrame Player API.
 | `v` | YouTube video ID (the part after `watch?v=` in a YouTube URL) |
 | `ssN` | Comma-separated Stop & Think question IDs to show at N seconds. Any number of `ssN` params allowed. |
 | `layout` | `vertical` (default) or `horizontal` — see Layout section below |
+| `bg` | Optional hex color (no `#`) to override the default background, e.g. `bg=ffffff` |
 
 The video pauses each time it crosses a new `ssN` threshold. The student reads and answers the questions, then clicks play to resume.
 
@@ -56,6 +57,8 @@ Video sits on top, questions panel below. The video is capped at `max-height: 55
 ### Horizontal (`?layout=horizontal`)
 Side-by-side: video left, questions right (380px fixed). Intended for slide embeds or wide viewports where vertical stacking wastes space. The `max-height` cap is removed in this mode. Applied by adding the class `horizontal` to `#app` at init — no JS branching, purely a CSS override.
 
+A draggable divider appears between the video and sidebar in horizontal mode. Drag left/right to resize the sidebar between 280–600px.
+
 ---
 
 ## Key constant (`app.js` top)
@@ -72,6 +75,8 @@ No `VIDEO_BASE` constant — YouTube videos are addressed by ID alone (`v=` para
 
 ### YouTube IFrame Player API, not `<video>`
 YouTube videos cannot be embedded with a plain `<video>` tag. The IFrame Player API (`youtube.com/iframe_api`) loads asynchronously and calls `window.onYouTubeIframeAPIReady()` when ready. That global function is defined in `app.js` and creates the `YT.Player` instance, which replaces the `#player` div with a YouTube iframe.
+
+`playerVars` includes `origin: window.location.origin` and `enablejsapi: 1`. These are required for the IFrame API's `postMessage` communication to work correctly when the viewer is itself embedded inside a Canvas LMS iframe (triple nesting). Without `origin`, the YouTube player initialises silently to a black screen.
 
 ### Polling, not events
 The YouTube IFrame API has no `timeupdate` event. `player.getCurrentTime()` is polled every 500ms via `setInterval` — the standard approach, accurate enough for whole-second thresholds.

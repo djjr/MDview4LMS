@@ -33,8 +33,9 @@ All state is driven by URL parameters:
 
 | Parameter | Meaning |
 |---|---|
-| `file` | Filename of the PDF (appended to `PDF_BASE`) |
+| `file` | Filename or full URL of the PDF |
 | `pageN` | Comma-separated Stop & Think question IDs to show when page N is visible |
+| `bg` | Optional hex color (no `#`) to override the default background, e.g. `bg=ffffff` |
 
 Pages with no `pageN` entry show a "No questions on this page" placeholder in the sidebar.
 
@@ -97,6 +98,11 @@ PDF.js fetches PDFs via `fetch()`. The production server (`innoeduvation.org`) d
 ## Relationship to the Markdown viewer
 
 The Markdown viewer (`/index.html`) uses a `[^st:108,109]` sidenote syntax to embed Stop & Think iframes inline in the reading flow. The PDF viewer achieves the same effect through scroll-position awareness rather than explicit markup. Both ultimately load the same `ST_BASE` URL with a `?q=` parameter.
+
+---
+
+### Draggable divider
+A 5px drag handle sits between the PDF column and the sidebar. Drag left/right to resize the sidebar between 280–600px. Turns accent red on hover and while dragging.
 
 ---
 

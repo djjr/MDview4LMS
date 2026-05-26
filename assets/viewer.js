@@ -8,14 +8,24 @@
 //   Stop & Think question iframes via [^st:q1,q2] syntax.
 //
 // URL SCHEMA
-//   ?file=content/reading.md
+//   ?file=content/reading.md   — path or full URL to the .md file
+//   ?bg=ffffff                 — optional hex color override for --paper background
 //
 // STOP & THINK SYNTAX (in the .md file)
-//   [^st:108,109]   — renders a Stop & Think iframe sidenote for questions 108, 109
-//   [^myref]        — renders a text sidenote (definition: [^myref]: text)
+//   [^st:108,109]   — renders an inline STOP+THINK badge (red/grey/green) and
+//                     a sidenote iframe loading questions 108 & 109. Does NOT
+//                     consume a footnote number.
+//   [^myref]        — renders a sequential superscript number and a text sidenote
+//                     (definition line: [^myref]: your note text)
+//
+// SIDENOTE ALIGNMENT
+//   Sidenotes are position:absolute. After render, alignSidenotes() centres each
+//   sidenote on the vertical midpoint of its inline reference, with 12px collision
+//   avoidance between adjacent sidenotes. Re-runs on window resize.
 //
 // CONSTANTS TO SWAP
 //   ST_BASE — base URL of the Stop & Think question app
+//             currently: https://djjr.github.io/STOP_and_THINK/index.html
 //
 // =============================================================================
 

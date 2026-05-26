@@ -16,14 +16,16 @@ All three load questions from the same Stop & Think app via iframe.
 
 ```
 # Markdown reader
-?file=content/reading.md
+?file=content/reading.md&bg=ffffff
 
 # PDF viewer
-?file=paper.pdf&page3=101,102&page7=104
+?file=paper.pdf&page3=101,102&page7=104&bg=ffffff
 
 # Video viewer
-?v=YOUTUBE_ID&ss30=101,102&ss90=104&layout=vertical
+?v=YOUTUBE_ID&ss30=101,102&ss90=104&layout=vertical&bg=ffffff
 ```
+
+`bg=` is optional on all three — pass a hex color (no `#`) to override the default warm paper background. Useful for matching the host LMS page color.
 
 ## Hosting
 
